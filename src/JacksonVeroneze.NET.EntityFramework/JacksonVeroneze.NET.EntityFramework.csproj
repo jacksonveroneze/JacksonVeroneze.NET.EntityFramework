@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+
+        <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+        <PackageId>JacksonVeroneze.NET.EntityFramework</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Jackson Veroneze</Authors>
+        <Company>jacksonveroneze</Company>
+        <PackageDescription>JacksonVeroneze.NET.EntityFramework</PackageDescription>
+        <RepositoryUrl>https://github.com/jacksonveroneze/JacksonVeroneze.NET.EntityFramework</RepositoryUrl>
+        <Title>JacksonVeroneze.NET.EntityFramework</Title>
+        <Description>Pacote utilizado para commons do EF.</Description>
+        <PackageProjectUrl>JacksonVeroneze.NET.EntityFramework</PackageProjectUrl>
+        <PackageLicenseUrl>JacksonVeroneze.NET.EntityFramework/blob/main/LICENSE</PackageLicenseUrl>
+        <Copyright>Jackson Veroneze</Copyright>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.3" />
+
+        <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+        
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+
+        <PackageReference Include="JacksonVeroneze.NET.Commons" Version="1.1.36" />
+    </ItemGroup>
+</Project>
