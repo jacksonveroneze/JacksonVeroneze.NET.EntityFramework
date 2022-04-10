@@ -95,7 +95,8 @@ namespace JacksonVeroneze.NET.EntityFramework.Data
                 .ToListAsync();
         }
 
-        public async Task<Pagination.PageResult<TEntity>> FilterPaginateAsync(Pagination.Pagination pagination,
+        public async Task<Pagination.PageResult<TEntity>> FilterPaginateAsync(
+            Pagination.Pagination pagination,
             Expression<Func<TEntity, bool>> expression)
 
         {
@@ -130,14 +131,18 @@ namespace JacksonVeroneze.NET.EntityFramework.Data
         }
 
         protected Pagination.PageResult<TType> FactoryPageable<TType>(
-            IList<TType> data, int total, int page, int pageSize) where TType : class
+            IList<TType> data, int totalElements,
+            int page, int pageSize) where TType : class
         {
             return new()
             {
                 Data = data,
-                TotalElements = total,
-                TotalPages = total > 0 ? (int)Math.Ceiling(total / (decimal)(pageSize)) : 0,
-                CurrentPage = page <= 0 ? 1 : page
+                TotalElements = totalElements,
+                TotalPages = totalElements > 0
+                    ? (int)Math.Ceiling(totalElements / (decimal)(pageSize))
+                    : 0,
+                CurrentPage = page <= 0 ? 1 : page,
+                PageSize = pageSize
             };
         }
 
