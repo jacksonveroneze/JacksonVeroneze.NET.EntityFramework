@@ -15,6 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{4D6FD65E-1907-4CFF-9EE2-D8174CCE24C1}"
+	ProjectSection(SolutionItems) = preProject
+		codeql-analysis.yml = .github\workflows\codeql-analysis.yml
+		create-package.yml = .github\workflows\create-package.yml
+	    run-commit-linter.yml = .github\workflows\run-commit-linter.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +38,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E28ED848-371E-4500-A5EE-C6093B46FCD6} = {C10F4B6E-F2CF-41A7-8F4E-A17C4B6A7A00}
+		{4D6FD65E-1907-4CFF-9EE2-D8174CCE24C1} = {7BC044A0-21B7-49BA-B355-D28A01D3CED8}
 	EndGlobalSection
 EndGlobal
