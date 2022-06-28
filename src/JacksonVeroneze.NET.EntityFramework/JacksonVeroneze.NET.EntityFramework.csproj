@@ -3,10 +3,9 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
-
         <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
         <PackageId>JacksonVeroneze.NET.EntityFramework</PackageId>
-        <Version>1.0.0</Version>
+        <Version>1.0.1</Version>
         <Authors>Jackson Veroneze</Authors>
         <Company>jacksonveroneze</Company>
         <PackageDescription>JacksonVeroneze.NET.EntityFramework</PackageDescription>
@@ -19,18 +18,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.6">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.6" />
 
         <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
-        
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
 
-        <PackageReference Include="JacksonVeroneze.NET.Commons" Version="1.1.36" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.5" />
+
+        <PackageReference Include="JacksonVeroneze.NET.Pagination" Version="1.0.4" />
     </ItemGroup>
 </Project>
