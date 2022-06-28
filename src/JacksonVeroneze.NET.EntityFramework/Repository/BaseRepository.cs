@@ -1,18 +1,18 @@
 namespace JacksonVeroneze.NET.EntityFramework.Repository
 {
-    public abstract class BaseBaseRepository<TEntity, TType> : 
+    public abstract class BaseRepository<TEntity, TType> :
         IBaseRepository<TEntity, TType>
         where TEntity : BaseEntity<TType>
     {
-        protected readonly ILogger<BaseBaseRepository<TEntity, TType>> _logger;
+        protected readonly ILogger<BaseRepository<TEntity, TType>> _logger;
         protected readonly DbContext _context;
 
         protected readonly DbSet<TEntity> _dbSet;
 
         public IUnitOfWork UnitOfWork { get; set; }
 
-        protected BaseBaseRepository(
-            ILogger<BaseBaseRepository<TEntity, TType>> logger,
+        protected BaseRepository(
+            ILogger<BaseRepository<TEntity, TType>> logger,
             DbContext context,
             IUnitOfWork unitOfWork)
         {
@@ -29,7 +29,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
             await _dbSet.AddAsync(entity, cancellationToken);
 
             _logger.LogInformation("{class} - {method}",
-                nameof(BaseBaseRepository<TEntity, TType>),
+                nameof(BaseRepository<TEntity, TType>),
                 nameof(AddAsync));
         }
 
@@ -38,7 +38,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
             _dbSet.Update(entity);
 
             _logger.LogInformation("{class} - {method}",
-                nameof(BaseBaseRepository<TEntity, TType>),
+                nameof(BaseRepository<TEntity, TType>),
                 nameof(Update));
         }
 
@@ -47,7 +47,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
             _dbSet.Remove(entity);
 
             _logger.LogInformation("{class} - {method}",
-                nameof(BaseBaseRepository<TEntity, TType>),
+                nameof(BaseRepository<TEntity, TType>),
                 nameof(Remove));
         }
 
@@ -58,7 +58,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 .FindAsync(id, cancellationToken);
 
             _logger.LogInformation("{class} - {method} - Id: {id} - Found: {found}",
-                nameof(BaseBaseRepository<TEntity, TType>),
+                nameof(BaseRepository<TEntity, TType>),
                 nameof(GetByIdAsync),
                 id,
                 result != null);
@@ -76,7 +76,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 .ToListAsync(cancellationToken);
 
             _logger.LogInformation("{class} - {method} - Count: {count}",
-                nameof(BaseBaseRepository<TEntity, TType>),
+                nameof(BaseRepository<TEntity, TType>),
                 nameof(GetAllAsync),
                 data.Count);
 
@@ -85,10 +85,11 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
 
         public async Task<Page<TEntity>> GetPagedAsync(
             PaginationParameters pagination,
-            Expression<Func<TEntity, bool>> expression,
+            Expression<Func<TEntity, bool>> expression = null,
             CancellationToken cancellationToken = default)
-
         {
+            expression ??= entity => true;
+            
             Task<int> totalTask = _dbSet
                 .AsNoTracking()
                 .Where(expression)
@@ -111,7 +112,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 new PageInfo(pagination, totalPages, total));
 
             _logger.LogInformation("{class} - {method} - Count: {count}",
-                nameof(BaseBaseRepository<TEntity, TType>),
+                nameof(BaseRepository<TEntity, TType>),
                 nameof(GetPagedAsync),
                 data.Pagination.TotalElements);
 
@@ -127,7 +128,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 .CountAsync(cancellationToken);
 
             _logger.LogInformation("{class} - {method} - Count: {count}",
-                nameof(BaseBaseRepository<TEntity, TType>),
+                nameof(BaseRepository<TEntity, TType>),
                 nameof(CountAsync),
                 total);
 

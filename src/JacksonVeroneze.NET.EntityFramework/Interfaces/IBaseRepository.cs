@@ -20,7 +20,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Interfaces
 
         Task<Page<TEntity>> GetPagedAsync(
             PaginationParameters pagination,
-            Expression<Func<TEntity, bool>> expression,
+            Expression<Func<TEntity, bool>> expression = null,
             CancellationToken cancellationToken = default);
 
         Task<int> CountAsync(Expression<Func<TEntity, bool>> expression,
