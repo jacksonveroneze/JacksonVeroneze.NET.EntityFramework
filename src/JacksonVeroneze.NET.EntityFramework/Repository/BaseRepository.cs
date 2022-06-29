@@ -1,8 +1,7 @@
 namespace JacksonVeroneze.NET.EntityFramework.Repository
 {
     public abstract class BaseRepository<TEntity, TType> :
-        IBaseRepository<TEntity, TType>
-        where TEntity : BaseEntity<TType>
+        IBaseRepository<TEntity, TType> where TEntity : BaseEntity<TType>
     {
         protected readonly ILogger<BaseRepository<TEntity, TType>> _logger;
         protected readonly DbContext _context;
@@ -99,7 +98,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 .AsNoTracking()
                 .Where(expression)
                 .OrderByDescending(x => x.CreatedAt)
-                .ConfigureSkipTake(pagination)
+                .ConfigurePagination(pagination)
                 .ToListAsync(cancellationToken);
 
             int total = await totalTask;

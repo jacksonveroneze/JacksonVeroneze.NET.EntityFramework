@@ -2,9 +2,8 @@
 {
     public static class QueryableExtension
     {
-        public static IQueryable<TSource> ConfigureSkipTake<TSource>(
-            this IQueryable<TSource> queryable,
-            PaginationParameters pagination)
+        public static IQueryable<TSource> ConfigurePagination<TSource>(
+            this IQueryable<TSource> queryable, PaginationParameters pagination)
         {
             int skip = pagination.Page;
 

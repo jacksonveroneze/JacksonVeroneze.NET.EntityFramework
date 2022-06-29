@@ -15,7 +15,7 @@ public abstract class BaseEntity<TType>
     public Guid TenantId { get; set; }
 
     public override string ToString()
-        => $"{GetType().Name}: Id: {Id}, CreatedAt: {CreatedAt}, " +
-           $"UpdatedAt: {UpdatedAt}, DeletedAt: {DeletedAt}, " +
-           $"Version: {Version}, TenantId: {TenantId}";
+        => $"{nameof(BaseEntity<TType>)}: Id: {Id} - CreatedAt: {CreatedAt} - " +
+           $"UpdatedAt: {UpdatedAt} - DeletedAt: {DeletedAt} - " +
+           $"Version: {Version} - TenantId: {TenantId}";
 }
