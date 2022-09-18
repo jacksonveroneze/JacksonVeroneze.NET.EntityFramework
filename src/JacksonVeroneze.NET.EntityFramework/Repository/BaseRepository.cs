@@ -89,8 +89,8 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
             CancellationToken cancellationToken = default)
         {
             expression ??= entity => true;
-            
-            Task<int> totalTask = _dbSet
+
+            Task<int> countTask = _dbSet
                 .AsNoTracking()
                 .Where(expression)
                 .CountAsync(cancellationToken);
@@ -102,14 +102,14 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 .ConfigurePagination(pagination)
                 .ToListAsync(cancellationToken);
 
-            int total = await totalTask;
+            int count = await countTask;
 
-            int totalPages = total > 0
-                ? (int)Math.Ceiling(total / (decimal)(pagination.PageSize))
+            int totalPages = count > 0
+                ? (int)Math.Ceiling(count / (decimal)(pagination.PageSize))
                 : 0;
 
             Page<TEntity> data = new(result,
-                new PageInfo(pagination, totalPages, total));
+                new PageInfo(pagination, totalPages, count));
 
             _logger.LogInformation("{class} - {method} - Count: {count}",
                 nameof(BaseRepository<TEntity, TType>),
@@ -120,14 +120,14 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
         }
 
         public async Task<bool> AnyAsync(
-            Expression<Func<TEntity, bool>> expression, 
+            Expression<Func<TEntity, bool>> expression,
             CancellationToken cancellationToken = default)
         {
             bool any = await _dbSet
                 .AsNoTracking()
                 .Where(expression)
                 .AnyAsync(cancellationToken);
-            
+
             _logger.LogInformation("{class} - {method} - Any: {any}",
                 nameof(BaseRepository<TEntity, TType>),
                 nameof(CountAsync),
