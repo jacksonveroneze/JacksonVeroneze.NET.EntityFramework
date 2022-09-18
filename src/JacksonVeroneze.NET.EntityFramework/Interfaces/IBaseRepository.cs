@@ -23,6 +23,9 @@ namespace JacksonVeroneze.NET.EntityFramework.Interfaces
             Expression<Func<TEntity, bool>> expression = null,
             CancellationToken cancellationToken = default);
 
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression,
+            CancellationToken cancellationToken = default);
+        
         Task<int> CountAsync(Expression<Func<TEntity, bool>> expression,
             CancellationToken cancellationToken = default);
     }

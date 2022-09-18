@@ -50,7 +50,8 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 nameof(Remove));
         }
 
-        public async ValueTask<TEntity> GetByIdAsync(TType id,
+        public async ValueTask<TEntity> GetByIdAsync(
+            TType id,
             CancellationToken cancellationToken = default)
         {
             TEntity result = await _dbSet
@@ -118,10 +119,28 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
             return data;
         }
 
-        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> expression,
+        public async Task<bool> AnyAsync(
+            Expression<Func<TEntity, bool>> expression, 
             CancellationToken cancellationToken = default)
         {
-            int total = await _dbSet
+            bool any = await _dbSet
+                .AsNoTracking()
+                .Where(expression)
+                .AnyAsync(cancellationToken);
+            
+            _logger.LogInformation("{class} - {method} - Any: {any}",
+                nameof(BaseRepository<TEntity, TType>),
+                nameof(CountAsync),
+                any);
+
+            return any;
+        }
+
+        public async Task<int> CountAsync(
+            Expression<Func<TEntity, bool>> expression,
+            CancellationToken cancellationToken = default)
+        {
+            int count = await _dbSet
                 .AsNoTracking()
                 .Where(expression)
                 .CountAsync(cancellationToken);
@@ -129,9 +148,9 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
             _logger.LogInformation("{class} - {method} - Count: {count}",
                 nameof(BaseRepository<TEntity, TType>),
                 nameof(CountAsync),
-                total);
+                count);
 
-            return total;
+            return count;
         }
 
         public void Dispose()
