@@ -55,7 +55,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
             CancellationToken cancellationToken = default)
         {
             TEntity result = await _dbSet
-                .FindAsync(id, cancellationToken);
+                .FindAsync(new object[]{id}, cancellationToken);
 
             _logger.LogInformation("{class} - {method} - Id: {id} - Found: {found}",
                 nameof(BaseRepository<TEntity, TType>),
@@ -90,7 +90,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
         {
             expression ??= entity => true;
 
-            Task<int> countTask = _dbSet
+            int count = await _dbSet
                 .AsNoTracking()
                 .Where(expression)
                 .CountAsync(cancellationToken);
@@ -101,8 +101,6 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
                 .OrderByDescending(x => x.CreatedAt)
                 .ConfigurePagination(pagination)
                 .ToListAsync(cancellationToken);
-
-            int count = await countTask;
 
             int totalPages = count > 0
                 ? (int)Math.Ceiling(count / (decimal)(pagination.PageSize))
@@ -130,7 +128,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Repository
 
             _logger.LogInformation("{class} - {method} - Any: {any}",
                 nameof(BaseRepository<TEntity, TType>),
-                nameof(CountAsync),
+                nameof(AnyAsync),
                 any);
 
             return any;
