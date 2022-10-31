@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{
 	ProjectSection(SolutionItems) = preProject
 		codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		create-package.yml = .github\workflows\create-package.yml
-	    run-commit-linter.yml = .github\workflows\run-commit-linter.yml
+					run-commit-linter.yml = .github\workflows\run-commit-linter.yml
 	EndProjectSection
 EndProject
 Global

@@ -1,7 +1,6 @@
-namespace JacksonVeroneze.NET.EntityFramework.Interfaces
+namespace JacksonVeroneze.NET.EntityFramework.Interfaces;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task<bool> CommitAsync();
-    }
+    Task<bool> CommitAsync();
 }
