@@ -4,8 +4,8 @@ using JacksonVeroneze.NET.Pagination;
 
 namespace JacksonVeroneze.NET.EntityFramework.Interfaces;
 
-public interface IBaseRepository<TEntity, TType> : IDisposable
-    where TEntity : BaseEntity<TType>
+public interface IBaseRepository<TEntity, TKey> : IDisposable
+    where TEntity : BaseEntity<TKey>
 {
     public IUnitOfWork UnitOfWork { get; set; }
 
@@ -16,7 +16,7 @@ public interface IBaseRepository<TEntity, TType> : IDisposable
 
     void Remove(TEntity entity);
 
-    ValueTask<TEntity> GetByIdAsync(TType id,
+    ValueTask<TEntity> GetByIdAsync(TKey id,
         CancellationToken cancellationToken = default);
 
     Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression,

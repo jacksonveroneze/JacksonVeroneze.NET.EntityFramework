@@ -1,8 +1,8 @@
 namespace JacksonVeroneze.NET.EntityFramework.DomainObjects;
 
-public abstract class BaseEntity<TType>
+public abstract class BaseEntity<TKey>
 {
-    public TType Id { get; set; }
+    public TKey Id { get; set; }
 
     public DateTime CreatedAt { get; } = DateTime.Now;
 
@@ -15,7 +15,7 @@ public abstract class BaseEntity<TType>
     public Guid TenantId { get; set; }
 
     public override string ToString()
-        => $"{nameof(BaseEntity<TType>)}: Id: {Id} - " +
+        => $"{nameof(BaseEntity<TKey>)}: Id: {Id} - " +
            $"CreatedAt: {CreatedAt} - UpdatedAt: {UpdatedAt} - " +
            $"DeletedAt: {DeletedAt} - Version: {Version} - " +
            $"TenantId: {TenantId}";

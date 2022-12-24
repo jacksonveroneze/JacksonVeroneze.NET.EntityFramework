@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using JacksonVeroneze.NET.EntityFramework.DatabaseContext;
 using JacksonVeroneze.NET.EntityFramework.DomainObjects;
 using JacksonVeroneze.NET.EntityFramework.Extensions;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
@@ -8,19 +9,19 @@ using Microsoft.Extensions.Logging;
 
 namespace JacksonVeroneze.NET.EntityFramework.Repository;
 
-public abstract class BaseRepository<TEntity, TType> :
-    IBaseRepository<TEntity, TType> where TEntity : BaseEntity<TType>
+public abstract class BaseRepository<TEntity, TKey> :
+    IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>, IDisposable
 {
-    protected readonly ILogger<BaseRepository<TEntity, TType>> _logger;
-    protected readonly DbContext _context;
+    protected readonly ILogger<BaseRepository<TEntity, TKey>> _logger;
+    protected readonly BaseDbContext _context;
 
     protected readonly DbSet<TEntity> _dbSet;
 
     public IUnitOfWork UnitOfWork { get; set; }
 
     protected BaseRepository(
-        ILogger<BaseRepository<TEntity, TType>> logger,
-        DbContext context,
+        ILogger<BaseRepository<TEntity, TKey>> logger,
+        BaseDbContext context,
         IUnitOfWork unitOfWork)
     {
         _logger = logger;
@@ -36,7 +37,7 @@ public abstract class BaseRepository<TEntity, TType> :
         await _dbSet.AddAsync(entity, cancellationToken);
 
         _logger.LogInformation("{class} - {method}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(AddAsync));
     }
 
@@ -45,7 +46,7 @@ public abstract class BaseRepository<TEntity, TType> :
         _dbSet.Update(entity);
 
         _logger.LogInformation("{class} - {method}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(Update));
     }
 
@@ -54,19 +55,19 @@ public abstract class BaseRepository<TEntity, TType> :
         _dbSet.Remove(entity);
 
         _logger.LogInformation("{class} - {method}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(Remove));
     }
 
     public async ValueTask<TEntity> GetByIdAsync(
-        TType id,
+        TKey id,
         CancellationToken cancellationToken = default)
     {
         TEntity result = await _dbSet
-            .FindAsync(new object[]{id}, cancellationToken);
+            .FindAsync(new object[] { id }, cancellationToken);
 
         _logger.LogInformation("{class} - {method} - Id: {id} - Found: {found}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(GetByIdAsync),
             id,
             result != null);
@@ -84,7 +85,7 @@ public abstract class BaseRepository<TEntity, TType> :
             .ToListAsync(cancellationToken);
 
         _logger.LogInformation("{class} - {method} - Count: {count}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(GetAllAsync),
             data.Count);
 
@@ -118,7 +119,7 @@ public abstract class BaseRepository<TEntity, TType> :
             new PageInfo(pagination, totalPages, count));
 
         _logger.LogInformation("{class} - {method} - Count: {count}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(GetPagedAsync),
             data.Pagination.TotalElements);
 
@@ -135,7 +136,7 @@ public abstract class BaseRepository<TEntity, TType> :
             .AnyAsync(cancellationToken);
 
         _logger.LogInformation("{class} - {method} - Any: {any}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(AnyAsync),
             any);
 
@@ -152,15 +153,16 @@ public abstract class BaseRepository<TEntity, TType> :
             .CountAsync(cancellationToken);
 
         _logger.LogInformation("{class} - {method} - Count: {count}",
-            nameof(BaseRepository<TEntity, TType>),
+            nameof(BaseRepository<TEntity, TKey>),
             nameof(CountAsync),
             count);
 
         return count;
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         _context.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
