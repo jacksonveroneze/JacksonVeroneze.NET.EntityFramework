@@ -1,5 +1,5 @@
 using JacksonVeroneze.NET.EntityFramework.Configuration;
-using JacksonVeroneze.NET.EntityFramework.DatabaseContext;
+using JacksonVeroneze.NET.EntityFramework.Context;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
 using JacksonVeroneze.NET.EntityFramework.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -19,34 +19,34 @@ public static class RegisterServices
 
     public static IServiceCollection AddPostgreSql<T>(
         this IServiceCollection services,
-        Action<DatabaseOptions> action) where T : BaseDbContext
+        Action<DatabaseConfiguration> action) where T : DatabaseContext
     {
         services.AddScoped<IUnitOfWork, BaseUnitOfWork>();
 
-        DatabaseOptions optionsConfig = new();
+        DatabaseConfiguration configurationConfig = new();
 
-        action?.Invoke(optionsConfig);
+        action?.Invoke(configurationConfig);
 
         return services.AddDbContext<T>((_, options) =>
-            options.UseNpgsql(optionsConfig.ConnectionString, optionsBuilder =>
+            options.UseNpgsql(configurationConfig.ConnectionString, optionsBuilder =>
                     optionsBuilder
-                        .CommandTimeout(optionsConfig.CommandTimeout)
-                        .EnableRetryOnFailure(optionsConfig.MaxRetryCount,
-                            optionsConfig.MaxRetryDelay, null)
+                        .CommandTimeout(configurationConfig.CommandTimeout)
+                        .EnableRetryOnFailure(configurationConfig.MaxRetryCount,
+                            configurationConfig.MaxRetryDelay, null)
                 )
-                .ConfigureOptions(optionsConfig)
+                .ConfigureOptions(configurationConfig)
         );
     }
 
     private static DbContextOptionsBuilder ConfigureOptions(
         this DbContextOptionsBuilder options,
-        DatabaseOptions optionsConfig)
+        DatabaseConfiguration configurationConfig)
     {
         options.UseSnakeCaseNamingConvention()
-            .UseLazyLoadingProxies(optionsConfig.UseLazyLoadingProxies)
-            .EnableDetailedErrors(optionsConfig.EnableDetailedErrors)
+            .UseLazyLoadingProxies(configurationConfig.UseLazyLoadingProxies)
+            .EnableDetailedErrors(configurationConfig.EnableDetailedErrors)
             .EnableSensitiveDataLogging(
-                optionsConfig.EnableSensitiveDataLogging);
+                configurationConfig.EnableSensitiveDataLogging);
 
         return options;
     }

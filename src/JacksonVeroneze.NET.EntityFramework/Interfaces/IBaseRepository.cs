@@ -30,6 +30,6 @@ public interface IBaseRepository<TEntity, TKey> : IDisposable
     Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression,
         CancellationToken cancellationToken = default);
 
-    Task<int> CountAsync(Expression<Func<TEntity, bool>> expression,
+    Task<long> CountAsync(Expression<Func<TEntity, bool>> expression,
         CancellationToken cancellationToken = default);
 }

@@ -1,13 +1,13 @@
-using JacksonVeroneze.NET.EntityFramework.DatabaseContext;
+using JacksonVeroneze.NET.EntityFramework.Context;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
 
 namespace JacksonVeroneze.NET.EntityFramework.UnitOfWork;
 
 public class BaseUnitOfWork : IUnitOfWork, IDisposable
 {
-    private readonly BaseDbContext _options;
+    private readonly DatabaseContext _options;
 
-    public BaseUnitOfWork(BaseDbContext options)
+    public BaseUnitOfWork(DatabaseContext options)
     {
         _options = options;
     }

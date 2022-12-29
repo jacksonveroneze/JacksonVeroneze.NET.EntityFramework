@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace JacksonVeroneze.NET.EntityFramework.DatabaseContext;
+namespace JacksonVeroneze.NET.EntityFramework.Context;
 
-public class BaseDbContext : DbContext
+public class DatabaseContext : DbContext
 {
-    public BaseDbContext(DbContextOptions<BaseDbContext> options)
+    public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
     {
     }
@@ -12,6 +12,6 @@ public class BaseDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(BaseDbContext).Assembly);
+            typeof(DatabaseContext).Assembly);
     }
 }

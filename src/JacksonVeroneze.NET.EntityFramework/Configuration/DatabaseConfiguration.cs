@@ -1,6 +1,6 @@
 namespace JacksonVeroneze.NET.EntityFramework.Configuration;
 
-public class DatabaseOptions
+public class DatabaseConfiguration
 {
     public string ConnectionString { get; set; }
 
