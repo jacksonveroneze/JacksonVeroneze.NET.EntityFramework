@@ -5,10 +5,10 @@ namespace JacksonVeroneze.NET.EntityFramework.Extensions;
 
 public static class GlobalFilterExtension
 {
-    public static ModelBuilder AddDeletedAtFilter<T>(
-        this ModelBuilder modelBuilder) where T : BaseEntity<Guid>
+    public static ModelBuilder AddDeletedAtFilter<TEntity, TKey>(
+        this ModelBuilder modelBuilder) where TEntity : BaseEntity<TKey>
     {
-        modelBuilder.Entity<T>()
+        modelBuilder.Entity<TEntity>()
             .HasQueryFilter(x => x.DeletedAt == null);
 
         return modelBuilder;

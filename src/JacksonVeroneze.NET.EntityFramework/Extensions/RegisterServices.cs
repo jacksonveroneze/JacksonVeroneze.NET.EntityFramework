@@ -21,8 +21,6 @@ public static class RegisterServices
         this IServiceCollection services,
         Action<DatabaseConfiguration> action) where T : DatabaseContext
     {
-        services.AddScoped<IUnitOfWork, BaseUnitOfWork>();
-
         DatabaseConfiguration configurationConfig = new();
 
         action?.Invoke(configurationConfig);

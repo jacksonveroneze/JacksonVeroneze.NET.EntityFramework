@@ -9,27 +9,30 @@ public interface IBaseRepository<TEntity, TKey> : IDisposable
 {
     public IUnitOfWork UnitOfWork { get; set; }
 
-    Task AddAsync(TEntity entity,
+    Task<bool> AnyAsync(
+        Expression<Func<TEntity, bool>> expression,
         CancellationToken cancellationToken = default);
 
-    void Update(TEntity entity);
-
-    void Remove(TEntity entity);
-
-    ValueTask<TEntity> GetByIdAsync(TKey id,
+    Task<long> CountAsync(
+        Expression<Func<TEntity, bool>> expression,
         CancellationToken cancellationToken = default);
 
-    Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression,
+    Task CreateAsync(TEntity entity,
+        CancellationToken cancellationToken = default);
+
+    Task<ICollection<TEntity>> GetAllAsync(
+        Expression<Func<TEntity, bool>> expression,
+        CancellationToken cancellationToken = default);
+
+    Task<TEntity?> GetByIdAsync(TKey id,
         CancellationToken cancellationToken = default);
 
     Task<Page<TEntity>> GetPagedAsync(
         PaginationParameters pagination,
-        Expression<Func<TEntity, bool>> expression = null,
+        Expression<Func<TEntity, bool>>? expression = null,
         CancellationToken cancellationToken = default);
 
-    Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression,
-        CancellationToken cancellationToken = default);
+    void Remove(TEntity entity);
 
-    Task<long> CountAsync(Expression<Func<TEntity, bool>> expression,
-        CancellationToken cancellationToken = default);
+    void Update(TEntity entity);
 }

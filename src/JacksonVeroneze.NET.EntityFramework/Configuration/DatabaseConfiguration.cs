@@ -2,7 +2,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Configuration;
 
 public class DatabaseConfiguration
 {
-    public string ConnectionString { get; set; }
+    public string? ConnectionString { get; set; }
 
     public bool EnableDetailedErrors { get; set; }
 

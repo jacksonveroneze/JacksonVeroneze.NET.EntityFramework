@@ -5,7 +5,8 @@ namespace JacksonVeroneze.NET.EntityFramework.Extensions;
 public static class QueryableExtension
 {
     public static IQueryable<TSource> ConfigurePagination<TSource>(
-        this IQueryable<TSource> queryable, PaginationParameters pagination)
+        this IQueryable<TSource> queryable,
+        PaginationParameters pagination)
     {
         int skip = pagination.Page;
 
