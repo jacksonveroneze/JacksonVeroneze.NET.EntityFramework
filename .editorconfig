@@ -3,15 +3,23 @@ root = true
 # All files
 [*]
 charset = utf-8
-max_line_length = 80
+max_line_length = 100
 end_of_line = crlf
-indent_size = 2
+indent_size = 4
 indent_style = space
 insert_final_newline = false
 trim_trailing_whitespace = true
 
 # Xml files
 [*.xml]
+indent_size = 2
+
+# YML files
+[*.yml]
+indent_size = 2
+
+# YML files
+[*.csproj]
 indent_size = 2
 
 # C# files
@@ -369,7 +377,7 @@ dotnet_naming_style.s_camelcase.word_separator =
 dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 # Arrangement of Attributes
-csharp_max_attribute_length_for_same_line = 1
+# csharp_max_attribute_length_for_same_line = 2
 csharp_keep_existing_attribute_arrangement = true
 csharp_keep_existing_arrangement = true
 csharp_place_type_attribute_on_same_line = if_owner_is_single_line
