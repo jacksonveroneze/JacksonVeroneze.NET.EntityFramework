@@ -10,9 +10,15 @@ public static class QueryableExtension
     {
         int skip = pagination.Page;
 
-        if (skip < 0) skip = 0;
+        if (skip < 0)
+        {
+            skip = 0;
+        }
 
-        if (skip > 0) skip--;
+        if (skip > 0)
+        {
+            skip--;
+        }
 
         int take = pagination.PageSize;
 

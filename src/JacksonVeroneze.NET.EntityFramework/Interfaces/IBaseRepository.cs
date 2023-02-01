@@ -4,7 +4,7 @@ using JacksonVeroneze.NET.Pagination;
 
 namespace JacksonVeroneze.NET.EntityFramework.Interfaces;
 
-public interface IBaseRepository<TEntity, TKey> : IDisposable
+public interface IBaseRepository<TEntity, TKey>
     where TEntity : BaseEntity<TKey>
 {
     public IUnitOfWork UnitOfWork { get; set; }

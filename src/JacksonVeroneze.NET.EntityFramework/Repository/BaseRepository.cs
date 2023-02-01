@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using JacksonVeroneze.NET.EntityFramework.Context;
 using JacksonVeroneze.NET.EntityFramework.DomainObjects;
 using JacksonVeroneze.NET.EntityFramework.Extensions;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
@@ -9,11 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace JacksonVeroneze.NET.EntityFramework.Repository;
 
-public abstract class BaseRepository<TEntity, TKey> :
-    IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>, IDisposable
+public abstract class BaseRepository<TEntity, TKey> : IDisposable,
+    IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
 {
     protected readonly ILogger<BaseRepository<TEntity, TKey>> _logger;
-    protected readonly DatabaseContext _context;
+    protected readonly DbContext _context;
 
     protected readonly DbSet<TEntity> _dbSet;
 
@@ -21,7 +20,7 @@ public abstract class BaseRepository<TEntity, TKey> :
 
     protected BaseRepository(
         ILogger<BaseRepository<TEntity, TKey>> logger,
-        DatabaseContext context,
+        DbContext context,
         IUnitOfWork unitOfWork)
     {
         _logger = logger;
@@ -127,7 +126,7 @@ public abstract class BaseRepository<TEntity, TKey> :
             .ToListAsync(cancellationToken);
 
         int totalPages = count > 0
-            ? (int)Math.Ceiling(count / (decimal)(pagination.PageSize))
+            ? (int)Math.Ceiling(count / (decimal)pagination.PageSize)
             : 0;
 
         Page<TEntity> data = new(result,

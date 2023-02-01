@@ -1,34 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-        <PackageId>JacksonVeroneze.NET.EntityFramework</PackageId>
-        <Version>1.0.1</Version>
-        <Authors>Jackson Veroneze</Authors>
-        <Company>jacksonveroneze</Company>
-        <PackageDescription>JacksonVeroneze.NET.EntityFramework</PackageDescription>
-        <RepositoryUrl>https://github.com/jacksonveroneze/JacksonVeroneze.NET.EntityFramework</RepositoryUrl>
-        <Title>JacksonVeroneze.NET.EntityFramework</Title>
-        <Description>Pacote utilizado para commons do EF.</Description>
-        <PackageProjectUrl>JacksonVeroneze.NET.EntityFramework</PackageProjectUrl>
-        <PackageLicenseUrl>JacksonVeroneze.NET.EntityFramework/blob/main/LICENSE</PackageLicenseUrl>
-        <Copyright>Jackson Veroneze</Copyright>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+    <PackageId>JacksonVeroneze.NET.EntityFramework</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Jackson Veroneze</Authors>
+    <Company>jacksonveroneze</Company>
+    <PackageDescription>JacksonVeroneze.NET.EntityFramework</PackageDescription>
+    <RepositoryUrl>https://github.com/jacksonveroneze/JacksonVeroneze.NET.EntityFramework</RepositoryUrl>
+    <Title>JacksonVeroneze.NET.EntityFramework</Title>
+    <Description>Pacote utilizado para commons do EF.</Description>
+    <PackageProjectUrl>JacksonVeroneze.NET.EntityFramework</PackageProjectUrl>
+    <PackageLicenseUrl>JacksonVeroneze.NET.EntityFramework/blob/main/LICENSE</PackageLicenseUrl>
+    <Copyright>Jackson Veroneze</Copyright>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.1" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.1"/>
 
-        <PackageReference Include="EFCore.NamingConventions" Version="7.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+    <PackageReference Include="EFCore.NamingConventions" Version="7.0.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1"/>
 
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1"/>
 
-        <PackageReference Include="JacksonVeroneze.NET.Pagination" Version="1.0.4" />
-    </ItemGroup>
+    <PackageReference Include="JacksonVeroneze.NET.Pagination" Version="1.0.4"/>
+  </ItemGroup>
 </Project>
