@@ -29,7 +29,12 @@ public interface IBaseRepository<TEntity, TKey>
 
     Task<Page<TEntity>> GetPagedAsync(
         PaginationParameters pagination,
-        Expression<Func<TEntity, bool>>? expression = null,
+        Expression<Func<TEntity, bool>>? whereExpression = null,
+        Expression<Func<TEntity, object>>? orderExpression = null,
+        CancellationToken cancellationToken = default);
+
+    Task<TEntity?> GetSingleOrDefaultAsync(
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default);
 
     void Remove(TEntity entity);

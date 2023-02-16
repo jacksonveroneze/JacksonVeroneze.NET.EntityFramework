@@ -1,13 +1,13 @@
-using JacksonVeroneze.NET.EntityFramework.Context;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace JacksonVeroneze.NET.EntityFramework.UnitOfWork;
 
-public class BaseUnitOfWork : IUnitOfWork, IDisposable
+public class BaseUnitOfWork : IUnitOfWork
 {
-    private readonly DatabaseContext _options;
+    private readonly DbContext _options;
 
-    public BaseUnitOfWork(DatabaseContext options)
+    public BaseUnitOfWork(DbContext options)
     {
         _options = options;
     }
@@ -17,11 +17,5 @@ public class BaseUnitOfWork : IUnitOfWork, IDisposable
         bool isSuccess = await _options.SaveChangesAsync() > 0;
 
         return isSuccess;
-    }
-
-    public void Dispose()
-    {
-        _options.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

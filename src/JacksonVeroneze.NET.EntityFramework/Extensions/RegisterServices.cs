@@ -18,7 +18,7 @@ public static class RegisterServices
 
     public static IServiceCollection AddPostgreSql<T>(
         this IServiceCollection services,
-        Action<DatabaseConfiguration> action) where T : DbContext
+        Action<DatabaseConfiguration>? action) where T : DbContext
     {
         DatabaseConfiguration configurationConfig = new();
 
