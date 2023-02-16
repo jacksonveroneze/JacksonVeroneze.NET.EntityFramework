@@ -15,8 +15,10 @@ public abstract class BaseEntity<TKey>
     public Guid TenantId { get; init; }
 
     public override string ToString()
-        => $"{nameof(BaseEntity<TKey>)}: Id: {Id} - " +
-           $"CreatedAt: {CreatedAt} - UpdatedAt: {UpdatedAt} - " +
-           $"DeletedAt: {DeletedAt} - Version: {Version} - " +
-           $"TenantId: {TenantId}";
+    {
+        return $"{nameof(BaseEntity<TKey>)}: Id: {Id} - " +
+               $"CreatedAt: {CreatedAt} - UpdatedAt: {UpdatedAt} - " +
+               $"DeletedAt: {DeletedAt} - Version: {Version} - " +
+               $"TenantId: {TenantId}";
+    }
 }
