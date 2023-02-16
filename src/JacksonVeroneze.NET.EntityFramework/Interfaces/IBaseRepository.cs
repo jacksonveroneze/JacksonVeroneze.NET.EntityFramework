@@ -4,7 +4,7 @@ using JacksonVeroneze.NET.Pagination;
 
 namespace JacksonVeroneze.NET.EntityFramework.Interfaces;
 
-public interface IBaseRepository<TEntity, TKey> : IDisposable
+public interface IBaseRepository<TEntity, TKey>
     where TEntity : BaseEntity<TKey>
 {
     public IUnitOfWork UnitOfWork { get; set; }
@@ -29,7 +29,12 @@ public interface IBaseRepository<TEntity, TKey> : IDisposable
 
     Task<Page<TEntity>> GetPagedAsync(
         PaginationParameters pagination,
-        Expression<Func<TEntity, bool>>? expression = null,
+        Expression<Func<TEntity, bool>>? whereExpression = null,
+        Expression<Func<TEntity, object>>? orderExpression = null,
+        CancellationToken cancellationToken = default);
+
+    Task<TEntity?> GetSingleOrDefaultAsync(
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default);
 
     void Remove(TEntity entity);

@@ -1,5 +1,4 @@
 using JacksonVeroneze.NET.EntityFramework.Configuration;
-using JacksonVeroneze.NET.EntityFramework.Context;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
 using JacksonVeroneze.NET.EntityFramework.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,7 @@ public static class RegisterServices
 
     public static IServiceCollection AddPostgreSql<T>(
         this IServiceCollection services,
-        Action<DatabaseConfiguration> action) where T : DatabaseContext
+        Action<DatabaseConfiguration>? action) where T : DbContext
     {
         DatabaseConfiguration configurationConfig = new();
 
@@ -28,7 +27,7 @@ public static class RegisterServices
         return services.AddDbContext<T>((_, options) =>
             options.UseNpgsql(configurationConfig.ConnectionString, optionsBuilder =>
                     optionsBuilder
-                        .CommandTimeout(configurationConfig.CommandTimeout)
+                        .CommandTimeout(configurationConfig.CommandTimeoutSeconds)
                         .EnableRetryOnFailure(configurationConfig.MaxRetryCount,
                             configurationConfig.MaxRetryDelay, null)
                 )

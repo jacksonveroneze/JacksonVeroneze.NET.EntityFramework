@@ -10,10 +10,10 @@ public class DatabaseConfiguration
 
     public bool UseLazyLoadingProxies { get; set; }
 
-    public int CommandTimeout { get; set; }
+    public int CommandTimeoutSeconds { get; set; } = 30;
 
-    public int MaxRetryCount { get; set; }
+    public int MaxRetryCount { get; set; } = 3;
 
-    public TimeSpan MaxRetryDelay { get; set; }
-
+    public TimeSpan MaxRetryDelay { get; set; } =
+        TimeSpan.FromMilliseconds(100);
 }
