@@ -14,8 +14,8 @@ public class BaseUnitOfWork : IUnitOfWork
 
     public async Task<bool> CommitAsync()
     {
-        bool isSuccess = await _options.SaveChangesAsync() > 0;
+        int total = await _options.SaveChangesAsync();
 
-        return isSuccess;
+        return total > 0;
     }
 }

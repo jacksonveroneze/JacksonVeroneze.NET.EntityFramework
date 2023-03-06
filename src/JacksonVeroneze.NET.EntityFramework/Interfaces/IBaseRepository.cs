@@ -7,7 +7,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Interfaces;
 public interface IBaseRepository<TEntity, TKey>
     where TEntity : BaseEntity<TKey>
 {
-    public IUnitOfWork UnitOfWork { get; set; }
+    public IUnitOfWork UnitOfWork { get; }
 
     Task<bool> AnyAsync(
         Expression<Func<TEntity, bool>> expression,

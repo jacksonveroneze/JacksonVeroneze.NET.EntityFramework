@@ -29,6 +29,11 @@
 
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
 
-    <PackageReference Include="JacksonVeroneze.NET.Pagination" Version="1.0.4" />
+    <PackageReference Include="JacksonVeroneze.NET.Pagination" Version="1.0.5" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.Extensions.Logging" />
+  </ItemGroup>
+
 </Project>

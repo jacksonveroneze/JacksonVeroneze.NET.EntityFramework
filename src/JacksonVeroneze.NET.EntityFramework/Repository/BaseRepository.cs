@@ -4,7 +4,6 @@ using JacksonVeroneze.NET.EntityFramework.Extensions;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
 using JacksonVeroneze.NET.Pagination;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace JacksonVeroneze.NET.EntityFramework.Repository;
 
@@ -16,7 +15,7 @@ public abstract class BaseRepository<TEntity, TKey> :
 
     protected readonly DbSet<TEntity> _dbSet;
 
-    public IUnitOfWork UnitOfWork { get; set; }
+    public IUnitOfWork UnitOfWork { get; }
 
     protected BaseRepository(
         ILogger<BaseRepository<TEntity, TKey>> logger,
@@ -39,8 +38,7 @@ public abstract class BaseRepository<TEntity, TKey> :
             .Where(expression)
             .AnyAsync(cancellationToken);
 
-        _logger.LogInformation("{class} - {method} - Any: {any}",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogAny(nameof(BaseRepository<TEntity, TKey>),
             nameof(AnyAsync),
             any);
 
@@ -56,8 +54,7 @@ public abstract class BaseRepository<TEntity, TKey> :
             .Where(expression)
             .CountAsync(cancellationToken);
 
-        _logger.LogInformation("{class} - {method} - Count: {count}",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogCount(nameof(BaseRepository<TEntity, TKey>),
             nameof(CountAsync),
             count);
 
@@ -69,8 +66,7 @@ public abstract class BaseRepository<TEntity, TKey> :
     {
         await _dbSet.AddAsync(entity, cancellationToken);
 
-        _logger.LogInformation("{class} - {method} - Created",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogCreate(nameof(BaseRepository<TEntity, TKey>),
             nameof(CreateAsync));
     }
 
@@ -79,12 +75,12 @@ public abstract class BaseRepository<TEntity, TKey> :
         CancellationToken cancellationToken = default)
     {
         List<TEntity> data = await _dbSet
+            .AsNoTrackingWithIdentityResolution()
             .Where(expression)
-            .OrderByDescending(conf => conf.CreatedAt)
+            .OrderByDescending(entity => entity.CreatedAt)
             .ToListAsync(cancellationToken);
 
-        _logger.LogInformation("{class} - {method} - Count: {count}",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogGetAll(nameof(BaseRepository<TEntity, TKey>),
             nameof(GetAllAsync),
             data.Count);
 
@@ -97,10 +93,9 @@ public abstract class BaseRepository<TEntity, TKey> :
         TEntity? result = await _dbSet
             .FindAsync(new object[] { id! }, cancellationToken);
 
-        _logger.LogInformation("{class} - {method} - Id: {id} - Found: {found}",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogGetById(nameof(BaseRepository<TEntity, TKey>),
             nameof(GetByIdAsync),
-            id,
+            id!,
             result != null);
 
         return result;
@@ -124,14 +119,13 @@ public abstract class BaseRepository<TEntity, TKey> :
             .AsNoTracking()
             .Where(whereExpression)
             .OrderByDescending(orderExpression)
-            .ConfigureQueryPagination(pagination)
+            .ConfigurePagination(pagination)
             .ToListAsync(cancellationToken);
 
         Page<TEntity> data = result
             .ToPage(pagination, count);
 
-        _logger.LogInformation("{class} - {method} - Pagination: {@pagination}",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogGetPaged(nameof(BaseRepository<TEntity, TKey>),
             nameof(GetPagedAsync),
             data.Pagination);
 
@@ -147,8 +141,7 @@ public abstract class BaseRepository<TEntity, TKey> :
             .Where(whereExpression)
             .SingleOrDefaultAsync(cancellationToken);
 
-        _logger.LogInformation("{class} - {method} - Found: {found}",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogGetSingleOrDefault(nameof(BaseRepository<TEntity, TKey>),
             nameof(GetSingleOrDefaultAsync),
             result != null);
 
@@ -159,19 +152,17 @@ public abstract class BaseRepository<TEntity, TKey> :
     {
         _dbSet.Remove(entity);
 
-        _logger.LogInformation("{class} - {method} - Id: {id} - Removed",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogRemove(nameof(BaseRepository<TEntity, TKey>),
             nameof(Remove),
-            entity.Id);
+            entity.Id!);
     }
 
     public void Update(TEntity entity)
     {
         _dbSet.Update(entity);
 
-        _logger.LogInformation("{class} - {method} - Id: {id} - Updated",
-            nameof(BaseRepository<TEntity, TKey>),
+        _logger.LogUpdate(nameof(BaseRepository<TEntity, TKey>),
             nameof(Update),
-            entity.Id);
+            entity.Id!);
     }
 }

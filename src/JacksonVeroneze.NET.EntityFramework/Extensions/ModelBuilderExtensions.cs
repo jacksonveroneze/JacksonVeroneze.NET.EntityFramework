@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JacksonVeroneze.NET.EntityFramework.Extensions;
 
-public static class GlobalFilterExtension
+public static class ModelBuilderExtensions
 {
     public static ModelBuilder AddDeletedAtFilter<TEntity, TKey>(
         this ModelBuilder modelBuilder) where TEntity : BaseEntity<TKey>
