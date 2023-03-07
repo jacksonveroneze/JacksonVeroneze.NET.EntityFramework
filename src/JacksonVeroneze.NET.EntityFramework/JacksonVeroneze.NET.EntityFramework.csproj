@@ -24,15 +24,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.3" />
-    <PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
-    <PackageReference Include="JacksonVeroneze.NET.Pagination" Version="1.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.3"/>
+    <PackageReference Include="EFCore.NamingConventions" Version="7.0.2"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3"/>
+    <PackageReference Include="JacksonVeroneze.NET.Pagination" Version="1.0.6"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Microsoft.Extensions.Logging" />
+    <Using Include="Microsoft.Extensions.Logging"/>
   </ItemGroup>
 
 </Project>

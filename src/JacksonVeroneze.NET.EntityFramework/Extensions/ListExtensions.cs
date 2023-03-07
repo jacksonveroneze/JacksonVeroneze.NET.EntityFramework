@@ -16,6 +16,6 @@ public static class ListExtensions
             pagination.OrderBy,
             pagination.Direction);
 
-        return new(source, pageInfo);
+        return new Page<TEntity>(source, pageInfo);
     }
 }

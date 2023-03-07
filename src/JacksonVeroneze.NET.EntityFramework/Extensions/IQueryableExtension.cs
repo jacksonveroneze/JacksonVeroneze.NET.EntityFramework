@@ -12,10 +12,14 @@ public static class PaginationExtensions
         int take = pagination.PageSize;
 
         if (skip < 0)
+        {
             skip = 0;
+        }
 
         if (skip > 0)
+        {
             skip--;
+        }
 
         return queryable
             .Skip(skip * take)
