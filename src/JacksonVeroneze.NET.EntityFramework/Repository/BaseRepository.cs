@@ -61,6 +61,15 @@ public abstract class BaseRepository<TEntity, TKey> :
         return count;
     }
 
+    public void Delete(TEntity entity)
+    {
+        _dbSet.Remove(entity);
+
+        _logger.LogDelete(nameof(BaseRepository<TEntity, TKey>),
+            nameof(Delete),
+            entity.Id!);
+    }
+
     public async Task CreateAsync(TEntity entity,
         CancellationToken cancellationToken = default)
     {
@@ -148,12 +157,12 @@ public abstract class BaseRepository<TEntity, TKey> :
         return result;
     }
 
-    public void Remove(TEntity entity)
+    public void SoftDelete(TEntity entity)
     {
         _dbSet.Remove(entity);
 
-        _logger.LogRemove(nameof(BaseRepository<TEntity, TKey>),
-            nameof(Remove),
+        _logger.LogSoftDelete(nameof(BaseRepository<TEntity, TKey>),
+            nameof(SoftDelete),
             entity.Id!);
     }
 

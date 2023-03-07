@@ -20,6 +20,8 @@ public interface IBaseRepository<TEntity, TKey>
     Task CreateAsync(TEntity entity,
         CancellationToken cancellationToken = default);
 
+    void Delete(TEntity entity);
+
     Task<ICollection<TEntity>> GetAllAsync(
         Expression<Func<TEntity, bool>> expression,
         CancellationToken cancellationToken = default);
@@ -37,7 +39,7 @@ public interface IBaseRepository<TEntity, TKey>
         Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default);
 
-    void Remove(TEntity entity);
+    void SoftDelete(TEntity entity);
 
     void Update(TEntity entity);
 }

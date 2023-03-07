@@ -28,13 +28,21 @@ public static partial class LogMessagesExtensions
     [LoggerMessage(
         EventId = 4000,
         Level = LogLevel.Information,
+        Message = "{className} - {methodName} - Id: '{id}' - Deleted")]
+    public static partial void LogDelete(this ILogger logger,
+        string className, string methodName,
+        object id);
+
+    [LoggerMessage(
+        EventId = 5000,
+        Level = LogLevel.Information,
         Message = "{className} - {methodName} - Count: '{count}'")]
     public static partial void LogGetAll(this ILogger logger,
         string className, string methodName,
         long count);
 
     [LoggerMessage(
-        EventId = 5000,
+        EventId = 6000,
         Level = LogLevel.Information,
         Message = "{className} - {methodName} - Id: '{id}' - Found: '{found}'")]
     public static partial void LogGetById(this ILogger logger,
@@ -42,7 +50,7 @@ public static partial class LogMessagesExtensions
         object id, bool found);
 
     [LoggerMessage(
-        EventId = 6000,
+        EventId = 7000,
         Level = LogLevel.Information,
         Message = "{className} - {methodName} - Pagination: '{pagination}'")]
     public static partial void LogGetPaged(this ILogger logger,
@@ -50,7 +58,7 @@ public static partial class LogMessagesExtensions
         object pagination);
 
     [LoggerMessage(
-        EventId = 7000,
+        EventId = 8000,
         Level = LogLevel.Information,
         Message = "{className} - {methodName} - Found: '{found}'")]
     public static partial void LogGetSingleOrDefault(this ILogger logger,
@@ -58,19 +66,26 @@ public static partial class LogMessagesExtensions
         bool found);
 
     [LoggerMessage(
-        EventId = 8000,
+        EventId = 9000,
         Level = LogLevel.Information,
-        Message = "{className} - {methodName} - Id: '{id}' - Removed")]
-    public static partial void LogRemove(this ILogger logger,
+        Message = "{className} - {methodName} - Id: '{id}' - Deleted (Soft)")]
+    public static partial void LogSoftDelete(this ILogger logger,
         string className, string methodName,
         object id);
 
-
     [LoggerMessage(
-        EventId = 9000,
+        EventId = 10000,
         Level = LogLevel.Information,
         Message = "{className} - {methodName} - Id: '{id}' - Updated")]
     public static partial void LogUpdate(this ILogger logger,
         string className, string methodName,
         object id);
+
+    [LoggerMessage(
+        EventId = 11000,
+        Level = LogLevel.Information,
+        Message = "{className} - {methodName} - Commited - Success: {success}")]
+    public static partial void LogCommit(this ILogger logger,
+        string className, string methodName,
+        bool success);
 }
