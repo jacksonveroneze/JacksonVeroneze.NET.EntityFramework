@@ -1,6 +1,5 @@
 using JacksonVeroneze.NET.EntityFramework.Extensions;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
-using JacksonVeroneze.NET.EntityFramework.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace JacksonVeroneze.NET.EntityFramework.UnitOfWork;
