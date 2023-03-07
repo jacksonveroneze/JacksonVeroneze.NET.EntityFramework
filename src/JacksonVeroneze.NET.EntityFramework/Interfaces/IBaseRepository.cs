@@ -7,7 +7,7 @@ namespace JacksonVeroneze.NET.EntityFramework.Interfaces;
 public interface IBaseRepository<TEntity, TKey>
     where TEntity : BaseEntity<TKey>
 {
-    public IUnitOfWork UnitOfWork { get; set; }
+    public IUnitOfWork UnitOfWork { get; }
 
     Task<bool> AnyAsync(
         Expression<Func<TEntity, bool>> expression,
@@ -19,6 +19,8 @@ public interface IBaseRepository<TEntity, TKey>
 
     Task CreateAsync(TEntity entity,
         CancellationToken cancellationToken = default);
+
+    void Delete(TEntity entity);
 
     Task<ICollection<TEntity>> GetAllAsync(
         Expression<Func<TEntity, bool>> expression,
@@ -37,7 +39,7 @@ public interface IBaseRepository<TEntity, TKey>
         Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default);
 
-    void Remove(TEntity entity);
+    void SoftDelete(TEntity entity);
 
     void Update(TEntity entity);
 }

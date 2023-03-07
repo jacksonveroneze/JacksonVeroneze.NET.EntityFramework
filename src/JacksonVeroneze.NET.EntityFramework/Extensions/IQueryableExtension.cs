@@ -2,13 +2,14 @@
 
 namespace JacksonVeroneze.NET.EntityFramework.Extensions;
 
-public static class QueryableExtension
+public static class PaginationExtensions
 {
     public static IQueryable<TSource> ConfigurePagination<TSource>(
         this IQueryable<TSource> queryable,
         PaginationParameters pagination)
     {
         int skip = pagination.Page;
+        int take = pagination.PageSize;
 
         if (skip < 0)
         {
@@ -19,8 +20,6 @@ public static class QueryableExtension
         {
             skip--;
         }
-
-        int take = pagination.PageSize;
 
         return queryable
             .Skip(skip * take)
