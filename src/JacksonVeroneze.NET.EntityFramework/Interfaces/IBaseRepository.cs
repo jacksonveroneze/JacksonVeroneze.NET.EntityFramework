@@ -10,11 +10,11 @@ public interface IBaseRepository<TEntity, TKey>
     public IUnitOfWork UnitOfWork { get; }
 
     Task<bool> AnyAsync(
-        Expression<Func<TEntity, bool>> expression,
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default);
 
     Task<long> CountAsync(
-        Expression<Func<TEntity, bool>> expression,
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default);
 
     Task CreateAsync(TEntity entity,
@@ -23,7 +23,7 @@ public interface IBaseRepository<TEntity, TKey>
     void Delete(TEntity entity);
 
     Task<ICollection<TEntity>> GetAllAsync(
-        Expression<Func<TEntity, bool>> expression,
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default);
 
     Task<TEntity?> GetByIdAsync(TKey id,

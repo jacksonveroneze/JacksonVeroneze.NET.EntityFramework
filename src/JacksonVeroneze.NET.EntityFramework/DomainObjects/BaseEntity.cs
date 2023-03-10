@@ -4,13 +4,13 @@ public abstract class BaseEntity<TKey>
 {
     public TKey? Id { get; init; }
 
-    public DateTime CreatedAt { get; } = DateTime.Now;
+    public DateTime CreatedAt { get; init; } = DateTime.Now;
 
     public DateTime? UpdatedAt { get; set; }
 
     public DateTime? DeletedAt { get; set; }
 
-    public int Version { get; } = 1;
+    public int Version { get; set; } = 1;
 
     public Guid TenantId { get; init; }
 
