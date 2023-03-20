@@ -30,12 +30,15 @@ public abstract class BaseRepository<TEntity, TKey> :
     }
 
     public async Task<bool> AnyAsync(
-        Expression<Func<TEntity, bool>> expression,
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(
+            whereExpression, nameof(whereExpression));
+
         bool any = await _dbSet
             .AsNoTracking()
-            .Where(expression)
+            .Where(whereExpression)
             .AnyAsync(cancellationToken);
 
         _logger.LogAny(nameof(BaseRepository<TEntity, TKey>),
@@ -46,12 +49,15 @@ public abstract class BaseRepository<TEntity, TKey> :
     }
 
     public async Task<long> CountAsync(
-        Expression<Func<TEntity, bool>> expression,
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(
+            whereExpression, nameof(whereExpression));
+
         int count = await _dbSet
             .AsNoTracking()
-            .Where(expression)
+            .Where(whereExpression)
             .CountAsync(cancellationToken);
 
         _logger.LogCount(nameof(BaseRepository<TEntity, TKey>),
@@ -63,6 +69,8 @@ public abstract class BaseRepository<TEntity, TKey> :
 
     public void Delete(TEntity entity)
     {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+
         _dbSet.Remove(entity);
 
         _logger.LogDelete(nameof(BaseRepository<TEntity, TKey>),
@@ -73,6 +81,8 @@ public abstract class BaseRepository<TEntity, TKey> :
     public async Task CreateAsync(TEntity entity,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+
         await _dbSet.AddAsync(entity, cancellationToken);
 
         _logger.LogCreate(nameof(BaseRepository<TEntity, TKey>),
@@ -80,12 +90,15 @@ public abstract class BaseRepository<TEntity, TKey> :
     }
 
     public async Task<ICollection<TEntity>> GetAllAsync(
-        Expression<Func<TEntity, bool>> expression,
+        Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(
+            whereExpression, nameof(whereExpression));
+
         List<TEntity> data = await _dbSet
             .AsNoTrackingWithIdentityResolution()
-            .Where(expression)
+            .Where(whereExpression)
             .OrderByDescending(entity => entity.CreatedAt)
             .ToListAsync(cancellationToken);
 
@@ -99,12 +112,14 @@ public abstract class BaseRepository<TEntity, TKey> :
     public async Task<TEntity?> GetByIdAsync(TKey id,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(id, nameof(id));
+
         TEntity? result = await _dbSet
-            .FindAsync(new object[] { id! }, cancellationToken);
+            .FindAsync(new object[] { id }, cancellationToken);
 
         _logger.LogGetById(nameof(BaseRepository<TEntity, TKey>),
             nameof(GetByIdAsync),
-            id!,
+            id,
             result != null);
 
         return result;
@@ -116,8 +131,10 @@ public abstract class BaseRepository<TEntity, TKey> :
         Expression<Func<TEntity, object>>? orderExpression = null,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(pagination, nameof(pagination));
+
         whereExpression ??= entity => true;
-        orderExpression ??= entity => entity.Id!;
+        orderExpression ??= entity => entity.CreatedAt;
 
         int count = await _dbSet
             .AsNoTracking()
@@ -145,8 +162,11 @@ public abstract class BaseRepository<TEntity, TKey> :
         Expression<Func<TEntity, bool>> whereExpression,
         CancellationToken cancellationToken = default)
     {
+        ArgumentNullException.ThrowIfNull(
+            whereExpression, nameof(whereExpression));
+
         TEntity? result = await _dbSet
-            .AsNoTracking()
+            .AsNoTrackingWithIdentityResolution()
             .Where(whereExpression)
             .SingleOrDefaultAsync(cancellationToken);
 
@@ -159,7 +179,11 @@ public abstract class BaseRepository<TEntity, TKey> :
 
     public void SoftDelete(TEntity entity)
     {
-        _dbSet.Remove(entity);
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+
+        entity.DeletedAt = DateTime.Now;
+
+        _dbSet.Update(entity);
 
         _logger.LogSoftDelete(nameof(BaseRepository<TEntity, TKey>),
             nameof(SoftDelete),
@@ -168,6 +192,11 @@ public abstract class BaseRepository<TEntity, TKey> :
 
     public void Update(TEntity entity)
     {
+        ArgumentNullException.ThrowIfNull(entity, nameof(entity));
+
+        entity.UpdatedAt = DateTime.Now;
+        entity.Version += 1;
+
         _dbSet.Update(entity);
 
         _logger.LogUpdate(nameof(BaseRepository<TEntity, TKey>),
