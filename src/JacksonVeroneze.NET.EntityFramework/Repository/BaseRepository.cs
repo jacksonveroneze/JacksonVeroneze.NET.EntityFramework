@@ -166,7 +166,6 @@ public abstract class BaseRepository<TEntity, TKey> :
             whereExpression, nameof(whereExpression));
 
         TEntity? result = await _dbSet
-            .AsNoTrackingWithIdentityResolution()
             .Where(whereExpression)
             .SingleOrDefaultAsync(cancellationToken);
 
