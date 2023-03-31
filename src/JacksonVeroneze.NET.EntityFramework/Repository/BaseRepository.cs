@@ -3,6 +3,7 @@ using JacksonVeroneze.NET.EntityFramework.DomainObjects;
 using JacksonVeroneze.NET.EntityFramework.Extensions;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
 using JacksonVeroneze.NET.Pagination;
+using JacksonVeroneze.NET.Pagination.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace JacksonVeroneze.NET.EntityFramework.Repository;

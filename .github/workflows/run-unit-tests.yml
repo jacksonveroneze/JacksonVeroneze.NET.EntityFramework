@@ -2,7 +2,7 @@ name: Run Unit Tests
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ development, main ]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -21,13 +21,13 @@ jobs:
           dotnet-version: '7.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore --no-cache
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build -c Release --no-restore
 
       - name: Test
-        run: dotnet test --configuration Release --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        run: dotnet test -c Release --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
       - uses: samspills/assign-pr-to-author@v1.0
         if: github.event_name == 'pull_request' && github.event.action == 'opened'
