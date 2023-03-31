@@ -19,16 +19,16 @@ jobs:
           dotnet-version: '7.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore --no-cache
 
       - name: Test
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        run: dotnet test -c Release --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build ./src/JacksonVeroneze.NET.EntityFramework/JacksonVeroneze.NET.EntityFramework.csproj -c Release --no-restore
 
       - name: Pack
-        run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} --include-symbols --include-source
+        run: dotnet pack ./src/JacksonVeroneze.NET.EntityFramework/JacksonVeroneze.NET.EntityFramework.csproj -c Release /p:Version=${{ github.event.release.tag_name }} --include-symbols --include-source --no-restore
 
       - name: Publish Package
         run: dotnet nuget push ./src/JacksonVeroneze.NET.EntityFramework/bin/Release/JacksonVeroneze.NET.EntityFramework.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
