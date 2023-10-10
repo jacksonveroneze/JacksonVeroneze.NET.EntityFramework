@@ -1,11 +1,11 @@
 using System.Linq.Expressions;
-using JacksonVeroneze.NET.EntityFramework.DomainObjects;
+using JacksonVeroneze.NET.DomainObjects.Domain;
 using JacksonVeroneze.NET.Pagination;
 
 namespace JacksonVeroneze.NET.EntityFramework.Interfaces;
 
-public interface IBaseRepository<TEntity, TKey>
-    where TEntity : BaseEntity<TKey>
+public interface IBaseRepository<TEntity, in TKey>
+    where TEntity : Entity<TKey>
 {
     public IUnitOfWork UnitOfWork { get; }
 

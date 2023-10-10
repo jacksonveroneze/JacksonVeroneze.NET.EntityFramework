@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{4D6FD6
 		.github\workflows\run-unit-tests.yml = .github\workflows\run-unit-tests.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacksonVeroneze.NET.DomainObjects", "..\JacksonVeroneze.NET.DomainObjects\src\JacksonVeroneze.NET.DomainObjects\JacksonVeroneze.NET.DomainObjects.csproj", "{1D68FD46-CFBA-481D-9DCC-AA14494AB32D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{E28ED848-371E-4500-A5EE-C6093B46FCD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E28ED848-371E-4500-A5EE-C6093B46FCD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E28ED848-371E-4500-A5EE-C6093B46FCD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D68FD46-CFBA-481D-9DCC-AA14494AB32D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D68FD46-CFBA-481D-9DCC-AA14494AB32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D68FD46-CFBA-481D-9DCC-AA14494AB32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D68FD46-CFBA-481D-9DCC-AA14494AB32D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E28ED848-371E-4500-A5EE-C6093B46FCD6} = {C10F4B6E-F2CF-41A7-8F4E-A17C4B6A7A00}

@@ -24,7 +24,7 @@ public static class RegisterServices
 
         action?.Invoke(configurationConfig);
 
-        return services.AddDbContext<T>((_, options) =>
+        return services.AddDbContext<DbContext, T>((_, options) =>
             options.UseNpgsql(configurationConfig.ConnectionString, optionsBuilder =>
                     optionsBuilder
                         .CommandTimeout(configurationConfig.CommandTimeoutSeconds)

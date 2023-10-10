@@ -1,15 +1,17 @@
 using System.Linq.Expressions;
-using JacksonVeroneze.NET.EntityFramework.DomainObjects;
+using JacksonVeroneze.NET.DomainObjects.Domain;
 using JacksonVeroneze.NET.EntityFramework.Extensions;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
+using JacksonVeroneze.NET.EntityFramework.UnitOfWork;
 using JacksonVeroneze.NET.Pagination;
 using JacksonVeroneze.NET.Pagination.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace JacksonVeroneze.NET.EntityFramework.Repository;
 
-public abstract class BaseRepository<TEntity, TKey> :
-    IBaseRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
+public class BaseRepository<TEntity, TKey> :
+    IBaseRepository<TEntity, TKey>
+    where TEntity : Entity<TKey>
 {
     protected readonly ILogger<BaseRepository<TEntity, TKey>> _logger;
     protected readonly DbContext _context;
@@ -18,7 +20,7 @@ public abstract class BaseRepository<TEntity, TKey> :
 
     public IUnitOfWork UnitOfWork { get; }
 
-    protected BaseRepository(
+    public BaseRepository(
         ILogger<BaseRepository<TEntity, TKey>> logger,
         DbContext context,
         IUnitOfWork unitOfWork)
@@ -84,6 +86,7 @@ public abstract class BaseRepository<TEntity, TKey> :
     {
         ArgumentNullException.ThrowIfNull(entity, nameof(entity));
 
+        _dbSet.Attach(entity);
         await _dbSet.AddAsync(entity, cancellationToken);
 
         _logger.LogCreate(nameof(BaseRepository<TEntity, TKey>),
@@ -181,7 +184,7 @@ public abstract class BaseRepository<TEntity, TKey> :
     {
         ArgumentNullException.ThrowIfNull(entity, nameof(entity));
 
-        entity.DeletedAt = DateTime.Now;
+        entity.MarkAsDeleted();
 
         _dbSet.Update(entity);
 
@@ -194,8 +197,7 @@ public abstract class BaseRepository<TEntity, TKey> :
     {
         ArgumentNullException.ThrowIfNull(entity, nameof(entity));
 
-        entity.UpdatedAt = DateTime.Now;
-        entity.Version += 1;
+        entity.MarkAsUpdated();
 
         _dbSet.Update(entity);
 
